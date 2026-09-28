@@ -165,7 +165,7 @@
     document.body.classList.toggle('read-only', isReadOnlyMode());
     document.getElementById('siteTitleText').textContent = s.siteName;
     document.getElementById('footerText').textContent =
-      '© ' + new Date().getFullYear() + ' ' + s.siteName + ' · 纯前端博客 · 数据保存在浏览器本地，可在「设置」页备份';
+      '© ' + new Date().getFullYear() + ' ' + s.siteName;
 
     const first = route.parts[0] || 'home';
     const navKey = (first === 'post' || first === 'write' || first === 'edit') ? 'home' : first;
