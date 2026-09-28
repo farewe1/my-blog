@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一个纯前端的个人博客：支持 Markdown 写作、分类、标签、归档、搜索与本地数据备份。">
+  <title>我的博客</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#/" class="site-title"><span class="logo-dot"></span><span id="siteTitleText">我的博客</span></a>
+      <nav class="site-nav" id="siteNav">
+        <a href="#/" data-nav="home">首页</a>
+        <a href="#/archive" data-nav="archive">归档</a>
+        <a href="#/categories" data-nav="categories">分类</a>
+        <a href="#/about" data-nav="about">关于</a>
+        <a href="#/settings" data-nav="settings">设置</a>
+        <a href="#/write" class="btn btn-primary btn-sm nav-write-link admin-only">✍️ 写文章</a>
+      </nav>
+      <div class="header-actions">
+        <form id="searchForm" class="search-form">
+          <input id="searchInput" type="search" placeholder="搜索文章…" autocomplete="off">
+        </form>
+        <a href="#/write" class="btn btn-primary btn-sm header-write-btn admin-only">✍️ 写文章</a>
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="切换深浅色模式">🌙</button>
+        <button id="menuToggle" class="icon-btn nav-burger" type="button" aria-label="打开菜单">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="view" class="container view-main">
+    <div class="empty"><div class="empty-icon">⏳</div><p>正在加载…</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p id="footerText"></p>
+    </div>
+  </footer>
+
+  <div id="toastRoot"></div>
+  <div id="modalRoot"></div>
+
+  <noscript>本站需要启用 JavaScript 才能正常浏览。</noscript>
+
+  <script src="js/markdown.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
