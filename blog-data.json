@@ -32,16 +32,16 @@
     {
       "id": "p-welcome",
       "title": "欢迎来到我的博客",
-      "content": "欢迎来到我的博客",
+      "content": "欢迎来到我的博客！这是一篇初始化的示例文章，介绍这个博客的用法，读完就可以删掉它。\n\n## 这是一个纯前端博客\n\n没有服务器、没有数据库，所有数据都保存在你当前浏览器的 **localStorage** 里。这意味着：\n\n- 换一台电脑或换一个浏览器，数据不会自动跟着走\n- 清除浏览器数据之前，记得先备份\n\n## 日常怎么用\n\n1. 点右上角 **✍️ 写文章**，用 Markdown 写一篇新文章\n2. 写作时可以给文章选择**分类**、添加**标签**，还可以勾选**置顶**\n3. 在 **分类** 页面可以自由添加、重命名、删除分类\n4. 首页侧边栏可以按分类、标签筛选文章，顶部搜索框支持全文搜索\n5. **归档** 页面按年份回顾所有文章\n\n<!-- more -->\n\n## 备份与迁移\n\n进入 **设置** 页面：\n\n- **导出数据**：把全部文章、分类、设置下载为一个 JSON 文件\n- **导入数据**：选择之前导出的备份文件，一键恢复\n\n> 建议每隔一段时间导出一次备份，数据无价。\n\n## 发布到互联网（可选）\n\n想让别人通过互联网看到你的文章？本博客支持 **GitHub Pages + 自动同步**，完全免费：\n\n- 把整个文件夹上传到一个 GitHub 仓库并开启 Pages，网站即可上线\n- 在 **设置 → 远程发布** 填入仓库和访问令牌，之后每次保存文章都会自动同步给所有访客\n\n具体步骤见设置页里的配置指引，或 README 文件。\n\n## 下一步\n\n- 到 **设置** 页修改博客名称、简介和关于页\n- 删除这篇示例文章，写下你的第一篇博文\n- 部署也很简单：把整个文件夹扔到 GitHub Pages、Vercel、Netlify 等任意静态托管即可\n\n祝你写作愉快 ✨",
       "categoryId": "c-note",
       "tags": [
         "公告",
         "指南"
       ],
       "createdAt": 1790498104199,
-      "updatedAt": 1790590749966,
+      "updatedAt": 1790498104199,
       "pinned": true,
-      "views": 14
+      "views": 12
     },
     {
       "id": "p-markdown",
@@ -72,17 +72,6 @@
       "views": 8
     },
     {
-      "id": "mukzzxtbufl7j9",
-      "title": "test",
-      "content": "发布测试",
-      "categoryId": "c-note",
-      "tags": [],
-      "createdAt": 1790584867055,
-      "updatedAt": 1790584867055,
-      "pinned": false,
-      "views": 2
-    },
-    {
       "id": "mul3fwb20e7nne",
       "title": "codex桌宠生成教程",
       "content": "# Codex 自定义桌宠（Pets）教程整理\n\n> 整理日期：2026-09-28\n> 信息来源：多篇中文/英文教程与官方 Skill 仓库，原文链接见文末「参考资料」。\n\n---\n\n## 一、功能背景\n\n**Codex Pets** 是 OpenAI 在 **Codex 桌面端（Codex App）** 中推出的桌宠功能，约 2026 年 5 月上线：\n\n- 宠物以**浮层形式**出现在桌面/界面一角，会跑动、挥手、跳跃、换动作。\n- 它不只是装饰，更是一个**轻量级工作状态提醒器**：宠物会根据 Codex 当前的任务状态（工作中、等待输入、检查、失败、完成等）自动切换动画。\n- 后续版本加入了 **自定义宠物** 能力：可以用自己的参考图，通过官方 **hatch-pet Skill** 生成专属桌宠。\n\n时间线参考：\n\n| 时间 | 事件 |\n|---|---|\n| 2026-02-02 | Codex macOS 版上线 |\n| 2026-03-04 | Codex Windows 版跟进 |\n| 2026 年上半年 | Pets 功能上线，随后开放自定义宠物（hatch-pet） |\n\n> 注意：Pets 是 **Codex App** 的功能，不是 ChatGPT 桌面客户端的功能。\n\n---\n\n## 二、自定义宠物的文件格式\n\n一个自定义宠物本质上就是**两个本地文件**：\n\n| 文件 | 作用 |\n|---|---|\n| `pet.json` | 宠物信息：名称、显示名、对应的动画图集引用 |\n| `spritesheet.webp` | 动画图集：包含全部动作帧的雪碧图（sprite sheet） |\n\n安装位置（宠物目录）：\n\n```text\n~/.codex/pets/<宠物名称>/\n├── pet.json\n└── spritesheet.webp\n```\n\nCodex 读取该目录后即可在桌面浮窗中显示宠物，并按任务状态切换动作。\n\n---\n\n## 三、宠物的 9 种动作状态\n\n|hatch-pet 状态名 | 触发场景 | 帧数 | 设计要点 |\n|---|---|---|---|\n| `idle` | 待机 | 6 帧 | 安静呼吸、眨眼，微弱但不抢眼 |\n| `running-right` / `running-left` | 向右/向左移动 | 8 帧 | 四肢交替步态，不要加速度线、灰尘、阴影 |\n| `waving` | 打招呼 | 4 帧 | 抬前爪挥动后放回 |\n| `jumping` | 鼠标悬停在宠物上 | 5 帧 | 下蹲 → 起跳 → 最高点 → 下降 → 笨拙落地 |\n| `failed` | 任务失败 | 8 帧 | 耳朵垂下、低头、身体塌下 |\n| `waiting` | 等待用户输入 | 6 帧 | 东张西望、歪头、期待地望向用户 |\n| `running` | 忙碌工作 | 6 帧 | **不是跑步**！是原地拍爪、思考等专注动作 |\n| `review` | 审阅检查 | 6 帧 | 前倾、眯眼、视线扫描、摸下巴 |\n\n---\n\n## 四、快速上手：用 Hatch Pet Skill 做一只自己的桌宠\n\n### 4.1 准备工作（3 样东西）\n\n1. **Codex App**：能正常使用、额度充足。\n2. **角色参考图**（真人照 / 头像 / 宠物照 / 卡通形象均可）：\n   - 单一主体、轮廓完整、背景简单，正面或轻微侧面；\n   - **避免**复杂花纹、细碎首饰、文字——这些在小尺寸桌宠上会糊掉。\n3. **时间与额度**：全流程约 1 小时，大约消耗 60% 的周用量。\n\n### 4.2 安装 Hatch Pet Skill\n\n在 Codex 对话框输入：\n\n```text\n$skill-installer hatch-pet\n```\n\n或者用命令行方式全局安装：\n\n```bash\nnpx skills add openai/skills --skill hatch-pet -g -y\n```\n\n安装完成后**重启 Codex**（或执行 Force Reload Skills），然后问一句：\n\n> 你现在可以使用 hatch-pet 吗？\n\n确认 Skill 已加载。如果 Codex 里找不到「宠物」菜单，先回头检查这一步。\n\n### 4.3 生成流程\n\n**第一步：确定主形象（base 基准图）**\n\n- 上传参考图，说明想要的风格（Q 版、像素、贴纸、黏土、扁平插画等）。\n- base 相当于「宠物的身份证照片」，是最关键的一步——先只让它生成 base、不生成完整动作，要求全身完整居中、背景干净。\n- 检查三点：① 像不像原角色；② 缩小后是否清楚；③ 自己是否愿意天天看。不满意就在这一步反复调。\n\n**第二步：提交给 Hatch Pet**，提示词模板：\n\n```text\n请使用 $hatch-pet，把我上传的图片制作成 Codex 桌宠。\n桌宠名称：【填写名称】\n请以我上传的图片作为主要身份参考，保持不同动作中的脸、比例、主色和标志性特征一致。\n先确认主形象，再继续生成完整动作，完成视觉检查、打包和安装。\n```\n\n流程共 4 个阶段，可以在界面上看到进度：\n\n1. **Getting ready** —— 确认信息\n2. **Imagining the main look** —— 定主形象\n3. **Picturing the poses** —— 生成各个动作\n4. **Hatching** —— 组装图集、检查、打包\n\n**第三步：基于 base 生成动作**\n\n- 为了节省token用量，不建议一次性生成全部动作，先只做 `idle` 和 `running-right` 两个测试状态，检查脸、体型、颜色、道具是否稳定。\n- 测试通过后再生成其余动作，并明确要求所有状态：\n  > 脸型不变，体型不变，颜色不变，材质不变，固定道具不变，画风不变。\n\n**第四步：检查产物（5 条标准）**\n\n- ✅ **像不像**：各动作是同一个角色\n- ✅ **看不看得清**：缩小后仍可辨认\n- ✅ **动得顺不顺**：待机/行走动画能自然循环\n- ✅ **状态对不对**：各状态动作不串位\n- ✅ **背景干不干净**：无底色、无黑边、无破碎边缘\n\n> 单个动作有问题时不要全部重来，具体描述问题即可，例如：\n> 「等待动作中的角色发型和主形象不一致」，要求只修复该组并沿用同一主形象。\n\n### 4.4 启用宠物\n\n产物会自动安装到 `~/.codex/pets/<宠物名称>/`（`pet.json` + `spritesheet.webp`）。\n\n1. 打开 Codex App → **Settings → Pets**。\n2. 在**自定义宠物**中选中你的角色。\n3. 点击「**唤醒**」（或 Refresh 后选择宠物）。\n\n如果修改素材后没有生效：先**切换到其他宠物再切回**；仍无效则刷新或重启 Codex。\n\n### 4.5 验证效果\n\n让桌宠陪 Codex 跑一条真实任务（比如整理会议纪要），观察：\n\n- 工作时是否进入 `running` 状态；\n- 需要补充信息时是否停下进入 `waiting`；\n- 失败 / 检查状态的动作是否能明显区分。\n\n---\n\n## 五、常见问题（FAQ）\n\n**Q：第一次就要追求完美吗？**\n不需要。先跑通全流程，再逐步调整单个动作。\n\n**Q：待机动画（idle）为什么特别慢？**\n`idle` 原始一轮约 1.1 秒，但 Codex 桌面端会对它额外应用约 6 倍降速，实际接近 6.6 秒；而 `jumping`（悬停触发）约 840 ms 一轮、不受降速影响，所以显得流畅。这是应用自身的播放逻辑，**不是图集坏了**。不建议修改应用内部参数（属于编译后代码，更新会被覆盖）；更稳妥的做法是调整图集里的动作分配，让被降速的 `idle` 采用适合慢速展示的动画（如缓慢呼吸、眨眼）。\n\n**Q：最容易出现问题的环节？**\n动作生成——让多个动作保持角色一致是最难的。如果界面停顿，先看进度清单是否还在更新，别急着重来。\n\n**Q：参考图有什么禁忌？**\n复杂花纹、细首饰、文字在很小的桌宠界面里会糊掉。删细节不用舍不得。\n\n**Q：换了素材不更新怎么办？**\n切换宠物 → 切回 → 刷新 → 重启，按顺序试。\n\n---\n\n## 六、进阶玩法与社区资源\n\n### 直接下载现成宠物\n\n- **Petdex**：一条命令下载社区做好的宠物，无需自己生成。\n- **awesome-codex-pets**（GitHub）：社区精选的可安装宠物合集，收录超过 174 个 Codex 动画宠物。\n- 现成主题宠物举例（GitHub `hatch-pet` topic 下）：\n  - `x-if666/lappland-codex-pets` —— 明日方舟拉普兰德主题\n  - `77syut/lily-cat-codex-pet` —— Lily 猫动画\n  - `MickeyWzt/niu-lai-codex-pet` —— 非官方粉丝制作宠物\n  - `CraftNobody0505/lulu-dusk-codex-pet` —— 鹭鹭·暮光像素猫（含中文制作指南）\n\n### 相关工具\n\n- **DwDestiny/codex-visual-asset-skills**：透明图片资源与动画精灵图生成的 Codex 技能。\n- **ZDOSS/PetGenesis**：基于 hatch-pet 扩展，支持单人/双人宠物工作流、QA 校验和 pet.json 打包。\n- **git2968/Desktop-pet**：独立桌宠软件，支持 Live2D、Hatch-Pet 模型、AI 对话、语音输入和 MCP 扩展。\n\n### 手动换素材\n\n不想走生成流程的话，可以直接替换宠物目录（`~/.codex/pets/<宠物名称>/`）下的 `spritesheet.webp` 素材文件来自定义形象，注意保持图集布局与 `pet.json` 中的帧定义一致。\n\n---\n\n## 七、参考资料\n\n1. [Codex 桌宠保姆级教程 — toolin.ai](https://toolin.ai/blog/codex-hatch-pet-desktop-pet)\n2. [Codex 宠物功能教程 — 杰森的效率工坊](https://jasonai.me/blog/codex-pets)\n3. [GitHub Topic: hatch-pet](https://github.com/topics/hatch-pet)\n4. [hatch-pet skill 页面 — tool.lu](https://tool.lu/zh_CN/skill/s/ikl)\n5. [深度解析：Codex Pet Skill — 53AI](https://www.53ai.com/news/tishicikuangjia/2026050320581.html)\n6. [用 Codex 做了一只桌宠，比想象中简单很多 — CSDN](https://blog.csdn.net)\n7. [Codex 跑 Hatch Pet 桌宠任务教程 — CSDN](https://blog.csdn.net)\n8. [Generate Codex-compatible pet spritesheets — skills.rest](https://skills.rest)",
@@ -93,8 +82,5 @@
       "pinned": false,
       "views": 1
     }
-  ],
-  "meta": {
-    "updatedAt": 1790590749968
-  }
+  ]
 }
