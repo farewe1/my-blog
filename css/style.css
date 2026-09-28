@@ -330,6 +330,10 @@ a.page-btn:hover { border-color: var(--accent); color: var(--accent); }
   justify-content: center;
   margin-bottom: 8px;
 }
+.avatar-img { object-fit: cover; }
+
+/* 侧边栏博主卡片（含图片头像）整体居中 */
+.profile-card .avatar-img { display: block; margin-left: auto; margin-right: auto; }
 .profile-name { font-weight: 650; }
 .profile-sub { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
 .profile-stats {
