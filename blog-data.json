@@ -21,6 +21,11 @@
       "id": "c-note",
       "name": "随笔",
       "createdAt": 1790584504199
+    },
+    {
+      "id": "mul0n4wnas5nsv",
+      "name": "每日一题",
+      "createdAt": 1790585949335
     }
   ],
   "posts": [
@@ -79,6 +84,6 @@
     }
   ],
   "meta": {
-    "updatedAt": 1790585370303
+    "updatedAt": 1790585949335
   }
 }
